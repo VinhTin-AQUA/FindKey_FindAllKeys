@@ -33,9 +33,8 @@ public class UI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -66,43 +65,31 @@ public class UI extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 150, 40));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 40));
 
-        jButton3.setBackground(new java.awt.Color(7, 26, 38));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("SOLVE");
-        jButton3.setFocusPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(7, 26, 38));
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("FIND KEY");
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
 
-        jToggleButton1.setBackground(new java.awt.Color(7, 26, 38));
-        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton1.setText("DINF ALL KEYS");
-        jToggleButton1.setFocusPainted(false);
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setBackground(new java.awt.Color(7, 26, 38));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("FIND ALL KEYS");
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 40));
-
-        jToggleButton2.setBackground(new java.awt.Color(7, 26, 38));
-        jToggleButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton2.setText("FIND KEY");
-        jToggleButton2.setFocusPainted(false);
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 150, 40));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 150, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 580));
 
@@ -178,10 +165,10 @@ public class UI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // lưu PTH
-    private void handlePTH() {
+    private boolean savePTH() {
         if (jTextField1.getText().equals("") || jTextArea1.getText().equals("")) {
             JOptionPane.showConfirmDialog(null, "Tập thuộc tính hoặc tập phụ thuộc hàm không hợp lệ", "lỗi", JOptionPane.OK_CANCEL_OPTION);
-            return;
+            return false;
         }
         String _PTHStr = jTextArea1.getText();
 
@@ -209,9 +196,8 @@ public class UI extends javax.swing.JFrame {
             jPanel4.add(item);
         }
         jPanel4.revalidate();
-    }
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        handlePTH();
+        
+        // chuẩn hóa chuỗi
         String propStr = jTextField1.getText().toUpperCase();
         while (propStr.contains(" ")) { // loại bỏ ký tự trắng
             propStr = propStr.replace(" ", "");
@@ -220,44 +206,9 @@ public class UI extends javax.swing.JFrame {
         TreeSet<String> listProps = new TreeSet<>();
         listProps.addAll(Arrays.asList(propStr.split(",")));
         key.setProps(listProps);
-
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        dtm.setRowCount(0);
-
-        JTableHeader header = jTable1.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 14));
-        header.setBackground(Color.yellow);
-        if (jToggleButton2.isSelected() == true) { // find key
-            String[] conclusion = FindKey.Find(key).split("\n");
-            dtm.setColumnCount(1);
-            TableColumn column = jTable1.getColumnModel().getColumn(0);
-            column.setHeaderValue("Result");
-
-            for (var str : conclusion) {
-                Vector v = new Vector();
-                v.add(str);
-                dtm.addRow(v);
-            }
-        } else if (jToggleButton1.isSelected() == true) { // find all keys
-            dtm.setColumnCount(5);
-            String[] columnNames = {"Xi", "Xi U TN", "(Xi U TN)+", "Super key", "Key"};
-            for (int i = 0; i < jTable1.getColumnCount(); i++) {
-                TableColumn column = jTable1.getColumnModel().getColumn(i);
-                column.setHeaderValue(columnNames[i]);
-            }
-            FindAllKeys model = new FindAllKeys(key.getProps(), key.getListF());
-            int n = model.getXi().size() - 1;
-            for (int i = 0; i < n; i++) {
-                Vector v = new Vector();
-                v.add(model.getXi().get(i));
-                v.add(model.getXiUSrc().get(i));
-                v.add(model.getXiUSrcPlus().get(i));
-                v.add(model.getSuperKeys().get(i));
-                v.add(model.getKeys().get(i));
-                dtm.addRow(v);
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+        
+        return true;
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
@@ -271,17 +222,60 @@ public class UI extends javax.swing.JFrame {
         jPanel4.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        if (jToggleButton2.isSelected() == true) {
-            jToggleButton1.setSelected(false);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(savePTH() == false) {
+            return;
         }
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        if (jToggleButton1.isSelected() == true) {
-            jToggleButton2.setSelected(false);
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+
+        JTableHeader header = jTable1.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setBackground(Color.yellow);
+
+        String[] conclusion = FindKey.Find(key).split("\n");
+        dtm.setColumnCount(1);
+        TableColumn column = jTable1.getColumnModel().getColumn(0);
+        column.setHeaderValue("Result");
+
+        for (var str : conclusion) {
+            Vector v = new Vector();
+            v.add(str);
+            dtm.addRow(v);
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if(savePTH() == false) {
+            return;
+        }
+
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+
+        JTableHeader header = jTable1.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setBackground(Color.yellow);
+
+        dtm.setColumnCount(5);
+        String[] columnNames = {"Xi", "Xi U TN", "(Xi U TN)+", "Super key", "Key"};
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            TableColumn column = jTable1.getColumnModel().getColumn(i);
+            column.setHeaderValue(columnNames[i]);
+        }
+        FindAllKeys model = new FindAllKeys(key.getProps(), key.getListF());
+        int n = model.getXi().size() - 1;
+        for (int i = 0; i < n; i++) {
+            Vector v = new Vector();
+            v.add(model.getXi().get(i));
+            v.add(model.getXiUSrc().get(i));
+            v.add(model.getXiUSrcPlus().get(i));
+            v.add(model.getSuperKeys().get(i));
+            v.add(model.getKeys().get(i));
+            dtm.addRow(v);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -316,8 +310,9 @@ public class UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -331,7 +326,5 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
