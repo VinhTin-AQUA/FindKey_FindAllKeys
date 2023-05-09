@@ -230,7 +230,6 @@ public class UI extends javax.swing.JFrame {
         if (jToggleButton2.isSelected() == true) { // find key
             String[] conclusion = FindKey.Find(key).split("\n");
             dtm.setColumnCount(1);
-            dtm.setRowCount(0);
             TableColumn column = jTable1.getColumnModel().getColumn(0);
             column.setHeaderValue("Result");
 
@@ -263,7 +262,7 @@ public class UI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
         dtm.setRowCount(0);
-        dtm.setColumnCount(1);
+        dtm.setColumnCount(0);
         jTextField1.setText("");
         jTextArea1.setText("");
         key.clear();
