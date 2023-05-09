@@ -1,0 +1,41 @@
+case 1: đã kiểm chứng
+	U = {A,B,C,D}
+	F = {AB-C, D-B, C-ABD}
+	Vay khoa cua Q la:[C]
+	Tat ca cac khoa: C
+
+case 2: đã kiểm chứng
+	U = {A,B,C,D,E,H}
+	F = {BC-E, D-A, C-A, AE-D, BE-CH}
+	Vay khoa cua Q la:[B, E]
+	Tat ca cac khoa: CB,EB
+
+case 3: đã kiểm chứng
+	u = {A,B,C,D,E,F}
+	F = {A-B,CD-AB,D-EF,F-BC}
+	Vay khoa cua Q la: D
+	Tat ca cac khoa: D
+
+case 4: bài tập trên GG
+	u = {A,B,C}
+	F = {AB-C,C-A}
+	khóa: B,C
+	tất cả các khóa: AB, CB
+
+case 5: đã kiểm chứng
+	U = {A,B,C,D,E,G}
+	F = {B-E,D-A,C-AE,DB-EG}
+	KHÓA: B,C,D
+	CÁC KHÓA: BCD
+
+
+case 6: chưa kiểm chứng
+	U = {A,B,C,D,E,G}
+	F = {AB-C, C-A, BC-D, ACD-B, D-EG,BE-C, CG-BD, CE-AG}
+	Vay khoa cua Q la:[C, G]
+	TAT CA CAC KHOA: AB,BC,BD,CD,BE,CE,CG
+
+
+
+
+
